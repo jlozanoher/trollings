@@ -1,25 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import io, { Socket } from "socket.io-client";
+import { GameLayout } from "./components/GameLayout";
+
+interface IAppContext {
+  socket?: Socket;
+}
+
+export const AppContext = React.createContext<IAppContext>({});
 
 function App() {
+  const [socket, setSocket] = useState<any>(null);
+
+  useEffect(() => {
+    const newSocket = io(`http://127.0.0.1:1337`);
+    setSocket(newSocket);
+    return () => {
+      newSocket.close();
+    };
+  }, [setSocket]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContext.Provider value={{ socket }}>
+      <GameLayout />
+    </AppContext.Provider>
   );
 }
 
