@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { Socket } from "socket.io-client";
-import { QuestModel, TrollingModel } from "../models";
+import { PlayerModel, QuestModel, TrollingModel } from "../models";
 
 interface Props {
   socket?: Socket;
@@ -9,6 +9,7 @@ interface Props {
 export const useGameLogic = ({ socket }: Props) => {
   const [trollings, setTrollings] = useState<TrollingModel[]>([]);
   const [quest, setQuest] = useState<QuestModel | undefined>();
+  const [player, setPlayer] = useState<PlayerModel | undefined>();
 
   const removeTrolling = useCallback(
     (trolling: TrollingModel) => {
@@ -49,12 +50,18 @@ export const useGameLogic = ({ socket }: Props) => {
       setQuest((quest) => ({ ...quest, ...updatedQuest }));
     };
 
+    const updatePlayerListener = (updatedPlayer: PlayerModel) => {
+      console.log("update-player", updatedPlayer);
+      setPlayer(updatedPlayer);
+    };
+
     socket.on("achievement", achievementListener);
 
     socket.on("new-trolling", newTrollingListener);
     socket.on("update-trolling", updateTrollingListener);
     socket.on("new-quest", newQuestListener);
     socket.on("update-quest", updateQuestListener);
+    socket.on("update-player", updatePlayerListener);
 
     return () => {
       socket.off("achievement", achievementListener);
@@ -62,5 +69,5 @@ export const useGameLogic = ({ socket }: Props) => {
     };
   }, [socket]);
 
-  return { trollings, quest, removeTrolling };
+  return { trollings, quest, player, removeTrolling };
 };

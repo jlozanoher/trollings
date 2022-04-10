@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const header = styled.header`
+export const aside = styled.aside`
   display: flex;
   flex-direction: column;
   margin: 0 16px;
@@ -13,4 +13,9 @@ export const h1 = styled.h1`
 
 export const h2 = styled.h2`
   color: #9a1414;
+`;
+
+export const TopBar = styled.div`
+  display: flex;
+  margin: 0 16px;
 `;

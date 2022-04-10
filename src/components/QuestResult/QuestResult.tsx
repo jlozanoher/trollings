@@ -12,6 +12,7 @@ const QuestResult = ({ quest }: Props) => {
       <S.Wrapper>
         <S.TextContainer>
           <S.h1>Quest {quest?.state}</S.h1>
+          {quest?.state === "completed" && <S.h3>Points: {quest?.reward}</S.h3>}
         </S.TextContainer>
       </S.Wrapper>
     </S.Container>

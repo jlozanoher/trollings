@@ -27,7 +27,7 @@ function App() {
     return () => {
       newSocket.close();
     };
-  }, [setSocket]);
+  }, []);
 
   const handleBegin = () => {
     setWelcome(false);

@@ -70,3 +70,7 @@ export const h1 = styled.h1`
     }
   }
 `;
+
+export const h3 = styled.h3`
+  align-self: center;
+`;
