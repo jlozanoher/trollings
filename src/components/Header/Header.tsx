@@ -12,7 +12,9 @@ const Header = () => {
         <S.h1>Trollings dugeon</S.h1>
         {player && (
           <div>
-            <p>Title: {player?.title?.name}</p>
+            <p>
+              Title: <label>{player?.title?.name}</label>
+            </p>
             <small style={{ color: "#595757" }}>
               {player.title?.description}
             </small>

@@ -17,6 +17,7 @@ const Quest = (props: Props) => {
         uncompleted: quest.state === "uncompleted",
         failed: quest.state === "failed",
       })}
+      role="quest"
     >
       <h3>{quest.name}</h3>
       <summary>{quest.description}</summary>

@@ -6,5 +6,4 @@ export interface PlayerModel {
 export interface TitleModel {
   name: string;
   description: string;
-  points: number;
 }

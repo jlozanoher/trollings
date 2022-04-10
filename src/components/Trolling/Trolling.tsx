@@ -20,8 +20,7 @@ const generateRandomFromInitial = (e: number) =>
     )
   );
 
-const Trolling = (props: Props) => {
-  const { trolling } = props;
+const Trolling = ({ trolling }: Props) => {
   const [pos, setPos] = useState<Position>(trolling.position);
   const timeoutId = useRef<any>();
 
@@ -72,9 +71,10 @@ const Trolling = (props: Props) => {
         filter: trolling.state === "dead" ? "grayscale(1)" : "none",
       }}
       onClick={handleClick}
+      title="trolling"
+      role={trolling.type}
     >
       <img src={src} alt="creature" width={50} />
-      {/* {`I'm a ${trolling.type} trolling`} */}
     </S.Cointainer>
   );
 };

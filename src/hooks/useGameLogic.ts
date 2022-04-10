@@ -11,13 +11,10 @@ export const useGameLogic = ({ socket }: Props) => {
   const [quest, setQuest] = useState<QuestModel | undefined>();
   const [player, setPlayer] = useState<PlayerModel | undefined>();
 
-  const removeTrolling = useCallback(
-    (trolling: TrollingModel) => {
-      console.log("remove-trolling", trolling);
-      socket?.emit("remove-trolling", trolling.id);
-    },
-    [socket]
-  );
+  const removeTrolling = useCallback((trolling: TrollingModel) => {
+    console.log("remove-trolling", trolling);
+    socket?.emit("remove-trolling", trolling.id);
+  }, []);
 
   useEffect(() => {
     if (!socket) return;
@@ -55,8 +52,6 @@ export const useGameLogic = ({ socket }: Props) => {
       setPlayer(updatedPlayer);
     };
 
-    socket.on("achievement", achievementListener);
-
     socket.on("new-trolling", newTrollingListener);
     socket.on("update-trolling", updateTrollingListener);
     socket.on("new-quest", newQuestListener);
@@ -64,10 +59,13 @@ export const useGameLogic = ({ socket }: Props) => {
     socket.on("update-player", updatePlayerListener);
 
     return () => {
-      socket.off("achievement", achievementListener);
       socket.off("new-trolling", newTrollingListener);
+      socket.off("update-trolling", updateTrollingListener);
+      socket.off("new-quest", newQuestListener);
+      socket.off("update-quest", updateQuestListener);
+      socket.off("update-player", updatePlayerListener);
     };
-  }, [socket]);
+  }, []);
 
   return { trollings, quest, player, removeTrolling };
 };

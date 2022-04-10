@@ -17,7 +17,12 @@ function App() {
   const [gameOver, setGameOver] = useState(false);
 
   useEffect(() => {
-    const newSocket = io(`http://127.0.0.1:1337`);
+    const url =
+      process.env.NODE_ENV === "test"
+        ? ""
+        : process.env.REACT_APP_SERVER_URL || "";
+
+    const newSocket = io(url);
 
     newSocket.on("game-over", () => {
       setGameOver(true);
