@@ -13,7 +13,9 @@ const Header = () => {
         {player && (
           <div>
             <p>Title: {player?.title?.name}</p>
-            <small style={{ color: "gray" }}>{player.title?.description}</small>
+            <small style={{ color: "#595757" }}>
+              {player.title?.description}
+            </small>
             <p>Points: {player?.points}</p>
           </div>
         )}
